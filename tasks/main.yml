@@ -4,12 +4,14 @@
     repo=https://github.com/popstas/server-scripts.git
     dest=/usr/local/src/server-scripts
     version={{ server_scripts_version }}
+    force=yes
+  register: server_scripts_sync
   tags: server-scripts
 
 - name: Install server-scripts
   command:
     /usr/local/src/server-scripts/install.sh -y
-    creates=/usr/share/server-scripts
+  when: server_scripts_sync.changed
   tags: server-scripts
 
 - name: server-scripts config
