@@ -1,2 +1,7 @@
 ---
-server_scripts_version: v0.2.18
+server_scripts_version: v0.2.21
+server_scripts_cron_tasks:
+  - name: "detect-viruses"
+    hour: 3
+    minute: 40
+    job: "ionice -c3 detect-viruses /home"

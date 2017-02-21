@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: cron, cron_tasks: "{{server_scripts_cron_tasks}}" }
