@@ -1,7 +1,88 @@
 ---
-server_scripts_version: v0.2.21
+server_scripts_version: v0.2.24
+server_scripts_install_path: /usr/share/server-scripts
+server_scripts_logs_base_path: /var/log/server-scripts
+
+server_scripts_detect_viruses_path: /home
+
+#server_scripts_mailto: admin@example.com # required
+server_scripts_dbdump_dir: /var/backups/sql
+server_scripts_dbdump_log: "{{ server_scripts_logs_base_path }}/mysql_backup.log"
+#server_scripts_dbdump_remote_user: backup # required
+#server_scripts_dbdump_remote_host: backup.remote.com # required
+server_scripts_dbdump_remote_dir: "{{ server_scripts_dbdump_dir }}/{{ ansible_fqdn }}"
+server_scripts_dbdump_excluded_dbs: "_test$"
+
+server_scripts_check_dirs: |
+  "{{ server_scripts_dbdump_dir }}" \
+  "/var/log" \
+
+server_scripts_db_size_names_file: "{{ server_scripts_logs_base_path }}/db_size_names.log"
+server_scripts_db_size_sizes_file: "{{ server_scripts_logs_base_path }}/db_size_sizes.log"
+server_scripts_db_size_cache_mins: 30
+
+server_scripts_domains_check_dns: "8.8.8.8"
+server_scripts_domains_assert_ip: "your_server_ip"
+
+server_scripts_detect_viruses_log: "{{ server_scripts_logs_base_path }}/detect-viruses.log"
+server_scripts_detect_viruses_php_signatures: 'eval(base64_decode\|eval(stripslashes\|FilesMan\|WSO_VERSION\|\$sF=\"PCT4BA6ODSE_\"\|\$qV=\"stop_\"\|=chr('
+server_scripts_detect_viruses_js_signatures: "document.write(unescape"
+
+server_scripts_drupal_build_archives_projects_root: /usr/local/drupal
+server_scripts_drupal_build_archives_build_root: "{{ server_scripts_drupal_build_archives_projects_root }}/build"
+
+server_scripts_drupal_enable_caches_cache_livetime: 43200
+server_scripts_drupal_enable_caches_page_cache_maximum_age: 300
+
+server_scripts_drupal_get_drupals_root_level: 4 # for /home/user/www/example.com
+server_scripts_drupal_get_drupals_site_excluded_file: ".excluded"
+server_scripts_drupal_get_drupals_site_info_file: ".info"
+
+server_scripts_drupal_get_password_length: 12
+
+server_scripts_influxdb_annotate_host: ""
+server_scripts_influxdb_annotate_port: ""
+server_scripts_influxdb_annotate_user: ""
+server_scripts_influxdb_annotate_password: ""
+server_scripts_influxdb_annotate_database: ""
+
+server_scripts_influxdb_clientstat_nginx_log: /var/log/nginx/clientstat.access.log
+
+server_scripts_influxdb_sites_load_time_enabled: 0
+server_scripts_influxdb_sites_load_log_file: /var/log/nginx/access.log
+
+server_scripts_influxdb_ssh_add_keys_path: /root/ssh-public-keys
+
+
+
+
 server_scripts_cron_tasks:
-  - name: "detect-viruses"
-    hour: 3
-    minute: 40
-    job: "ionice -c3 detect-viruses /home"
+  - name: "server-scripts: backups_check"
+    hour: 10
+    minute: 10
+    job: "backups-check"
+
+  - name: "server-scripts: db-size"
+    hour: 7
+    minute: 2
+    job: "db-size"
+
+  - name: "server-scripts: detect-viruses"
+    hour: 6
+    minute: 0
+    job: "ionice -c3 detect-viruses {{ server_scripts_detect_viruses_path }}"
+
+  - name: "server-scripts: drupal-build-archives"
+    hour: "8-18"
+    minute: 59
+    job: "drupal-build-archives"
+
+  - name: "server-scripts: mysql_backup backup"
+    hour: "8,11,16,22"
+    minute: 5
+    job: "ionice -c mysql_backup backup"
+
+  - name: "server-scripts: mysql_backup backup and send and clean"
+    hour: 5
+    minute: 5
+    job: "ionice -c mysql_backup backup && mysql_backup send && mysql_backup clean"

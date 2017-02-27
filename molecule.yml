@@ -1,0 +1,23 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+docker:
+  containers:
+    - name: ansible-role-server-scripts
+      image: ubuntu
+      image_version: latest
+      volume_mounts:
+        - ${MOLECULE_APTPROXY_PATH}:/etc/apt/apt.conf.d/00aptproxy
+      ansible_groups:
+        - group1
+
+ansible:
+  playbook: tests/playbook.yml
+  group_vars:
+    all:
+      server_scripts_mailto: mail@example.com
+      server_scripts_dbdump_remote_host: backup.remote.com
+      server_scripts_dbdump_remote_user: backup

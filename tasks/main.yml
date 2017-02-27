@@ -1,19 +1,64 @@
 ---
-- name: Sync server-scripts
-  git:
-    repo=https://github.com/popstas/server-scripts.git
-    dest=/usr/local/src/server-scripts
-    version={{ server_scripts_version }}
-    force=yes
-  register: server_scripts_sync
+
+- name: Ensure cron and git installed
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - cron
+    - git
   tags: server-scripts
 
-- name: Install server-scripts
-  command:
-    /usr/local/src/server-scripts/install.sh -y
-  when: server_scripts_sync.changed
+- name: Sync server-scripts
+  git:
+    repo: https://github.com/popstas/server-scripts.git
+    version: "{{ server_scripts_version }}"
+    dest: "{{ server_scripts_install_path }}"
+    force: yes
+  register: register_server_scripts_sync
+  tags: server-scripts
+
+- name: Check symlinks exists
+  stat:
+    path: /usr/local/bin/dbdump
+  register: server_scripts_register_check_symlinks
+  tags: server-scripts
+
+- name: Create executable links
+  command: find "{{ server_scripts_install_path }}/bin" -type f -exec ln -s {} /usr/local/bin \;
+  when: not server_scripts_register_check_symlinks.stat.exists
+  tags: server-scripts
+
+- name: Create log directory
+  file:
+    path: "{{ server_scripts_logs_base_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
   tags: server-scripts
 
 - name: server-scripts config
-  template: src=server-scripts.conf.j2 dest=/etc/server-scripts.conf owner=root mode=0644
+  template:
+    src: server-scripts.conf.j2
+    dest: /etc/server-scripts.conf
+    owner: root
+    group: root
+    mode: 0644
   tags: server-scripts
+
+- name: Configuring cron tasks
+  cron:
+    cron_file: "{{ item.cron_file | default(omit) }}"
+    day: "{{ item.day | default(omit) }}"
+    hour: "{{ item.hour | default(omit) }}"
+    job: "{{ item.job | default(omit) }}"
+    minute: "{{ item.minute | default(omit) }}"
+    month: "{{ item.month | default(omit) }}"
+    name: "{{ item.name | default(item) }}"
+    special_time: "{{ item.special_time | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+    user: "{{ item.user | default(omit) }}"
+    weekday: "{{ item.weekday | default(omit) }}"
+  with_items: "{{ server_scripts_cron_tasks }}"
+  tags: [ server-scripts, cron ]
