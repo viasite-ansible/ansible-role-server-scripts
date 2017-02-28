@@ -7,7 +7,7 @@
   with_items:
     - cron
     - git
-  tags: server-scripts
+  tags: [ server-scripts, install ]
 
 - name: Sync server-scripts
   git:
@@ -16,18 +16,12 @@
     dest: "{{ server_scripts_install_path }}"
     force: yes
   register: register_server_scripts_sync
-  tags: server-scripts
-
-- name: Check symlinks exists
-  stat:
-    path: /usr/local/bin/dbdump
-  register: server_scripts_register_check_symlinks
-  tags: server-scripts
+  tags: [ server-scripts, install, upgrade ]
 
 - name: Create executable links
   command: find "{{ server_scripts_install_path }}/bin" -type f -exec ln -s {} /usr/local/bin \;
-  when: not server_scripts_register_check_symlinks.stat.exists
-  tags: server-scripts
+  when: register_server_scripts_sync|changed
+  tags: [ server-scripts, install, upgrade ]
 
 - name: Create log directory
   file:
@@ -36,7 +30,7 @@
     owner: root
     group: root
     mode: 0700
-  tags: server-scripts
+  tags: [ server-scripts, install ]
 
 - name: server-scripts config
   template:
@@ -45,7 +39,7 @@
     owner: root
     group: root
     mode: 0644
-  tags: server-scripts
+  tags: [ server-scripts, install, configure ]
 
 - name: Configuring cron tasks
   cron:
@@ -61,4 +55,4 @@
     user: "{{ item.user | default(omit) }}"
     weekday: "{{ item.weekday | default(omit) }}"
   with_items: "{{ server_scripts_cron_tasks }}"
-  tags: [ server-scripts, cron ]
+  tags: [ server-scripts, install, configure, cron ]
