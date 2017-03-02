@@ -1,5 +1,5 @@
 # ansible-role-server-scripts
-Install [popstas/server-scripts](https://github.com/popstas/server-scripts).
+Install [viasite/server-scripts](https://github.com/popstas/server-scripts).
 
 ## Required variables:
 - server_scripts_mailto

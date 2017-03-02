@@ -11,7 +11,7 @@
 
 - name: Sync server-scripts
   git:
-    repo: https://github.com/popstas/server-scripts.git
+    repo: https://github.com/viasite/server-scripts.git
     version: "{{ server_scripts_version }}"
     dest: "{{ server_scripts_install_path }}"
     force: yes

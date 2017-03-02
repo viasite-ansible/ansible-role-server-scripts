@@ -2,7 +2,7 @@
 galaxy_info:
   author: Stanislav Popov
   company: Viasite
-  description: Install popstas/server-scripts
+  description: Install viasite/server-scripts
   license: MIT
   min_ansible_version: 1.8
   platforms:
