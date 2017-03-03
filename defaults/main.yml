@@ -1,5 +1,5 @@
 ---
-server_scripts_version: v0.2.24
+server_scripts_version: v0.2.25
 server_scripts_install_path: /usr/share/server-scripts
 server_scripts_logs_base_path: /var/log/server-scripts
 
@@ -8,7 +8,7 @@ server_scripts_detect_viruses_path: /home
 #server_scripts_mailto: admin@example.com # required
 server_scripts_dbdump_dir: /var/backups/sql
 server_scripts_dbdump_log: "{{ server_scripts_logs_base_path }}/mysql_backup.log"
-#server_scripts_dbdump_remote_user: backup # required
+server_scripts_dbdump_remote_user: backup # required
 #server_scripts_dbdump_remote_host: backup.remote.com # required
 server_scripts_dbdump_remote_dir: "{{ server_scripts_dbdump_dir }}/{{ ansible_fqdn }}"
 server_scripts_dbdump_excluded_dbs: "_test$"

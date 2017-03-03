@@ -16,8 +16,3 @@ docker:
 
 ansible:
   playbook: tests/playbook.yml
-  group_vars:
-    all:
-      server_scripts_mailto: mail@example.com
-      server_scripts_dbdump_remote_host: backup.remote.com
-      server_scripts_dbdump_remote_user: backup

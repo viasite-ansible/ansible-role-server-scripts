@@ -1,13 +1,19 @@
 # {{ ansible_managed }}
 # all
+{% if server_scripts_mailto is defined %}
 MAILTO="{{ server_scripts_mailto }}"
+{% endif %}
 
 # dbdump, dbundump
 DB_BACKUPS_ROOT="{{ server_scripts_dbdump_dir }}"
 DB_BACKUPS_LOG="{{ server_scripts_dbdump_log }}"
 
+{% if server_scripts_dbdump_remote_user is defined %}
 DB_BACKUPS_REMOTE_USER="{{ server_scripts_dbdump_remote_user }}"
+{% endif %}
+{% if server_scripts_dbdump_remote_host is defined %}
 DB_BACKUPS_REMOTE_HOST="{{ server_scripts_dbdump_remote_host }}"
+{% endif %}
 DB_BACKUPS_REMOTE_DIR="{{ server_scripts_dbdump_remote_dir }}"
 
 DB_BACKUPS_EXCLUDED_DBS="{{ server_scripts_dbdump_excluded_dbs }}"
