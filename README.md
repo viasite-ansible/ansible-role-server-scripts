@@ -1,4 +1,5 @@
-# ansible-role-server-scripts
+[![Build Status](https://travis-ci.org/viasite-ansible/ansible-role-server-scripts.svg?branch=master)](https://travis-ci.org/viasite-ansible/ansible-role-server-scripts)
+
 Install [viasite/server-scripts](https://github.com/popstas/server-scripts).
 
 ## Required variables:
