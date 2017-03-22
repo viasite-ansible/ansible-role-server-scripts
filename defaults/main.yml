@@ -12,6 +12,8 @@ server_scripts_dbdump_remote_user: backup # required
 #server_scripts_dbdump_remote_host: backup.remote.com # required
 server_scripts_dbdump_remote_dir: "{{ server_scripts_dbdump_dir }}/{{ ansible_fqdn }}"
 server_scripts_dbdump_excluded_dbs: "_test$"
+server_scripts_dbdump_clean_older_days: 30
+server_scripts_dbdump_clean_older_days_to_one: 3
 
 server_scripts_check_dirs: |
   "{{ server_scripts_dbdump_dir }}" \
@@ -41,7 +43,7 @@ server_scripts_drupal_get_drupals_site_info_file: ".info"
 server_scripts_drupal_get_password_length: 12
 
 server_scripts_influxdb_annotate_host: ""
-server_scripts_influxdb_annotate_port: ""
+server_scripts_influxdb_annotate_port: "8086"
 server_scripts_influxdb_annotate_user: ""
 server_scripts_influxdb_annotate_password: ""
 server_scripts_influxdb_annotate_database: ""
@@ -82,7 +84,12 @@ server_scripts_cron_tasks:
     minute: 5
     job: "ionice -c mysql_backup backup"
 
-  - name: "server-scripts: mysql_backup backup and send and clean"
+  - name: "server-scripts: mysql_backup backup and send"
     hour: 5
     minute: 5
-    job: "ionice -c mysql_backup backup && mysql_backup send && mysql_backup clean"
+    job: "ionice -c mysql_backup backup && mysql_backup send"
+
+  - name: "server-scripts: mysql_backup clean"
+    hour: 5
+    minute: 10
+    job: "ionice -c mysql_backup clean"
