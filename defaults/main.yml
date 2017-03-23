@@ -82,14 +82,14 @@ server_scripts_cron_tasks:
   - name: "server-scripts: mysql_backup backup"
     hour: "8,11,16,22"
     minute: 5
-    job: "ionice -c mysql_backup backup"
+    job: "ionice -c3 mysql_backup backup"
 
   - name: "server-scripts: mysql_backup backup and send"
     hour: 5
     minute: 5
-    job: "ionice -c mysql_backup backup && mysql_backup send"
+    job: "ionice -c3 mysql_backup backup && mysql_backup send"
 
   - name: "server-scripts: mysql_backup clean"
     hour: 5
     minute: 10
-    job: "ionice -c mysql_backup clean"
+    job: "ionice -c3 mysql_backup clean"
