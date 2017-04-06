@@ -64,20 +64,20 @@ server_scripts_cron_tasks:
     minute: 10
     job: "backups-check"
 
-  - name: "server-scripts: db-size"
-    hour: 7
-    minute: 2
-    job: "db-size"
+  #- name: "server-scripts: db-size"
+  #  hour: 7
+  #  minute: 2
+  #  job: "db-size"
 
   - name: "server-scripts: detect-viruses"
     hour: 6
     minute: 0
     job: "ionice -c3 detect-viruses {{ server_scripts_detect_viruses_path }}"
 
-  - name: "server-scripts: drupal-build-archives"
-    hour: "8-18"
-    minute: 59
-    job: "drupal-build-archives"
+  #- name: "server-scripts: drupal-build-archives"
+  #  hour: "8-18"
+  #  minute: 59
+  #  job: "drupal-build-archives"
 
   - name: "server-scripts: mysql_backup backup"
     hour: "8,11,16,22"
