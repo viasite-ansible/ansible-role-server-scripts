@@ -1,5 +1,5 @@
 ---
-server_scripts_version: v0.2.27
+server_scripts_version: master
 server_scripts_install_path: /usr/share/server-scripts
 server_scripts_logs_base_path: /var/log/server-scripts
 
