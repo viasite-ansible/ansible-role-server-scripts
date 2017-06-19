@@ -1,12 +1,23 @@
 ---
 
-- name: Ensure cron and git installed
+- name: Ensure cron and git installed (Debian)
   apt:
     name: "{{ item }}"
     state: present
   with_items:
     - cron
     - git
+  when: ansible_os_family == 'Debian'
+  tags: [ server-scripts, install ]
+
+- name: Ensure cron and git installed (RedHat)
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - crontabs
+    - git
+  when: ansible_os_family == 'RedHat'
   tags: [ server-scripts, install ]
 
 - name: Sync server-scripts
