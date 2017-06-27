@@ -12,8 +12,8 @@ server_scripts_dbdump_remote_user: backup # required
 #server_scripts_dbdump_remote_host: backup.remote.com # required
 server_scripts_dbdump_remote_dir: "{{ server_scripts_dbdump_dir }}/{{ ansible_fqdn }}"
 server_scripts_dbdump_excluded_dbs: "_test$"
-server_scripts_dbdump_clean_older_days: 30
-server_scripts_dbdump_clean_older_days_to_one: 3
+server_scripts_dbdump_clean_older_days: 14
+server_scripts_dbdump_clean_older_days_to_one: 2
 
 server_scripts_check_dirs: |
   "{{ server_scripts_dbdump_dir }}" \
