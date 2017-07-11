@@ -59,6 +59,7 @@ server_scripts_influxdb_annotate_port: "8086"
 server_scripts_influxdb_annotate_user: ""
 server_scripts_influxdb_annotate_password: ""
 server_scripts_influxdb_annotate_database: ""
+server_scripts_influxdb_annotate_measurement: "event"
 
 server_scripts_influxdb_clientstat_nginx_log: /var/log/nginx/clientstat.access.log
 
