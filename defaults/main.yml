@@ -27,7 +27,19 @@ server_scripts_domains_check_dns: "8.8.8.8"
 server_scripts_domains_assert_ip: "your_server_ip"
 
 server_scripts_detect_viruses_log: "{{ server_scripts_logs_base_path }}/detect-viruses.log"
-server_scripts_detect_viruses_php_signatures: 'eval(base64_decode\|eval(stripslashes\|FilesMan\|WSO_VERSION\|\$sF=\"PCT4BA6ODSE_\"\|\$qV=\"stop_\"\|=chr('
+server_scripts_detect_viruses_php_signatures:
+  - 'eval(base64_decode'
+  - 'eval(stripslashes'
+  - 'FilesMan'
+  - 'WSO_VERSION'
+  - '\$sF=\"PCT4BA6ODSE_\"'
+  - '\$qV=\"stop_\"'
+  - '=chr('
+  - '\.chr(101'
+  - 'b374k'
+  - "'base'\\.(32\\*"
+server_scripts_detect_viruses_php_signatures_excluded: "filesManag"
+server_scripts_detect_viruses_php_files_excluded: 'easy-captcha.php\|tfpdf.php'
 server_scripts_detect_viruses_js_signatures: "document.write(unescape"
 
 server_scripts_drupal_build_archives_projects_root: /usr/local/drupal
