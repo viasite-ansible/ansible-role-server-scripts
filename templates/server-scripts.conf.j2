@@ -36,9 +36,9 @@ DOMAINS_CHECK_ASSERT_IP="{{ server_scripts_domains_assert_ip }}"
 # detect-viruses
 VIRUSES_LOG="{{ server_scripts_detect_viruses_log }}"
 VIRUSES_PHP_SIGNATURES="{{ server_scripts_detect_viruses_php_signatures | join('\|') }}"
-VIRUSES_PHP_SIGNATURES_EXCLUDED="{{ server_scripts_detect_viruses_php_signatures_excluded }}"
-VIRUSES_PHP_FILES_EXCLUDED="{{ server_scripts_detect_viruses_php_files_excluded }}"
-VIRUSES_JS_SIGNATURES="{{ server_scripts_detect_viruses_js_signatures }}"
+VIRUSES_PHP_SIGNATURES_EXCLUDED="{{ server_scripts_detect_viruses_php_signatures_excluded | join('\|') }}"
+VIRUSES_PHP_FILES_EXCLUDED="{{ server_scripts_detect_viruses_php_files_excluded | join('\|') }}"
+VIRUSES_JS_SIGNATURES="{{ server_scripts_detect_viruses_js_signatures | join('\|') }}"
 
 # drupal-build-archives
 DRUPAL_PROJECTS_ROOT="{{ server_scripts_drupal_build_archives_projects_root }}"

@@ -38,9 +38,10 @@ server_scripts_detect_viruses_php_signatures:
   - '\.chr(101'
   - 'b374k'
   - "'base'\\.(32\\*"
-server_scripts_detect_viruses_php_signatures_excluded: "filesManag"
-server_scripts_detect_viruses_php_files_excluded: 'easy-captcha.php\|tfpdf.php'
-server_scripts_detect_viruses_js_signatures: "document.write(unescape"
+server_scripts_detect_viruses_php_signatures_excluded: []
+server_scripts_detect_viruses_php_files_excluded: []
+server_scripts_detect_viruses_js_signatures:
+  - "document.write(unescape"
 
 server_scripts_drupal_build_archives_projects_root: /usr/local/drupal
 server_scripts_drupal_build_archives_build_root: "{{ server_scripts_drupal_build_archives_projects_root }}/build"
