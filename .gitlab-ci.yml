@@ -2,3 +2,24 @@
 test:
   script:
     - molecule test
+
+pull_role:
+  stage: build
+  tags:
+    - dev
+  script:
+    - if [ -z "$ANSIBLE_SERVER_PATH" ]; then exit 1; fi
+    - rsync -r "$PWD/" "$ANSIBLE_SERVER_PATH/../$CI_PROJECT_NAME/"
+    #- cd $ANSIBLE_SERVER_PATH && git pull origin master
+  only:
+    - master
+
+"adeploy server-scripts":
+  tags:
+    - prod
+  stage: deploy
+  script:
+    - ANSIBLE_STDOUT_CALLBACK=actionable ansible-deploy server-scripts --ssh-common-args="-i /srv/docker/gitlab/keys/prod/id_rsa"
+  when: manual
+  only:
+    - master
