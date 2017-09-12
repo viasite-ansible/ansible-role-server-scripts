@@ -44,6 +44,7 @@ server_scripts_detect_viruses_js_signatures:
   - "document.write(unescape"
 
 server_scripts_drupal_build_archives_projects_root: /usr/local/drupal
+server_scripts_drupal_build_archives_projects_types: [ features, libraries, modules, profiles, themes ]
 server_scripts_drupal_build_archives_build_root: "{{ server_scripts_drupal_build_archives_projects_root }}/build"
 
 server_scripts_drupal_enable_caches_cache_livetime: 43200
