@@ -3,16 +3,16 @@ test:
   script:
     - molecule test
 
-pull_role:
-  stage: build
-  tags:
-    - dev
-  script:
-    - if [ -z "$ANSIBLE_SERVER_PATH" ]; then exit 1; fi
-    - rsync -r "$PWD/" "$ANSIBLE_SERVER_PATH/../$CI_PROJECT_NAME/"
-    #- cd $ANSIBLE_SERVER_PATH && git pull origin master
-  only:
-    - master
+#pull_role:
+#  stage: build
+#  tags:
+#    - dev
+#  script:
+#    - if [ -z "$ANSIBLE_SERVER_PATH" ]; then exit 1; fi
+#    - rsync -r "$PWD/" "$ANSIBLE_SERVER_PATH/../$CI_PROJECT_NAME/"
+#    #- cd $ANSIBLE_SERVER_PATH && git pull origin master
+#  only:
+#    - master
 
 "adeploy server-scripts":
   tags:
