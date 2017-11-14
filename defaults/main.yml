@@ -70,6 +70,8 @@ server_scripts_influxdb_sites_load_log_file: /var/log/nginx/access.log
 
 server_scripts_influxdb_ssh_add_keys_path: /root/ssh-public-keys
 
+server_scripts_user_setup_homedir_mode: "750"
+server_scripts_user_setup_homedir_group: "www-data"
 
 
 
