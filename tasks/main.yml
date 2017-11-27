@@ -52,15 +52,6 @@
     mode: 0644
   tags: [ server-scripts, install, configure ]
 
-- name: site-info config
-  template:
-    src: site-info.yml.j2
-    dest: /etc/site-info.yml
-    owner: root
-    group: root
-    mode: 0644
-  tags: [ server-scripts, install, configure ]
-
 - name: Configuring cron tasks
   cron:
     cron_file: "{{ item.cron_file | default(omit) }}"
