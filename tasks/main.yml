@@ -31,7 +31,7 @@
 
 - name: Create executable links
   command: find "{{ server_scripts_install_path }}/bin" -type f -exec ln -s {} /usr/local/bin \;
-  when: register_server_scripts_sync|changed
+  when: register_server_scripts_sync is changed
   tags: [ server-scripts, install, upgrade, skip_ansible_lint ]
 
 - name: Create log directory
