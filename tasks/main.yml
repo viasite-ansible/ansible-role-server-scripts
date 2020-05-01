@@ -6,6 +6,7 @@
       - cron
       - git
     state: present
+    update_cache: yes
   when: ansible_os_family == 'Debian'
   tags: [ server-scripts, install ]
 
@@ -14,6 +15,7 @@
     name:
       - crontabs
       - git
+    update_cache: yes
     state: present
   when: ansible_os_family == 'RedHat'
   tags: [ server-scripts, install ]
