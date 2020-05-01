@@ -4,12 +4,13 @@ galaxy_info:
   company: Viasite
   description: Install viasite/server-scripts
   license: MIT
-  min_ansible_version: 1.8
+  min_ansible_version: 2.8
   platforms:
     - name: Ubuntu
       versions:
-        - trusty
         - xenial
+        - bionic
+        - focal
   galaxy_tags:
     - system
     - drupal
